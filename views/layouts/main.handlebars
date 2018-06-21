@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scraper!</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="app.js"></script>
+  {{!-- <script src="https://code.jquery.com/jquery.js"></script> --}}
+</head>
+<body>
+  {{{ body }}}
+</body>
+
+<script>
+
+  function displayArticles() {
+  $.getJSON("/articles", function(data) {
+    // For each one
+    for (var i = 0; i < data.length; i++) {
+      // Display the apropos information on the page
+      $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
+    }
+  });
+}
+
+   
+$("#goscraper").on("click", function() {
+  console.log("test");
+  $.ajax({
+    method: "GET",
+    url: "/scrape"
+  }).then(function(data){
+    console.log(data);
+    displayArticles();
+  })
+}); 
+
+</script>
+</html>
