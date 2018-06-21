@@ -5,7 +5,7 @@ var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 
 
-var PORT = 4000;
+var PORT = process.env.PORT || 3001;
 
 // Initialize Express
 var app = express();
@@ -21,8 +21,7 @@ app.use(express.static("public"));
 // By default mongoose uses callbacks for async queries, we're setting it to use promises (.then syntax) instead
 // Connect to the Mongo DB
 mongoose.Promise = Promise;
-mongoose.connect("mongodb://localhost/scrapedArticles", {
-  useMongoClient: true
+mongoose.connect(MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scrapedArticles", {
 });
 
 app.engine("handlebars", exphbs({ defaultLayout: "main", layoutsDir: __dirname + '/views/layouts' }));
